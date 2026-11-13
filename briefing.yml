@@ -1,0 +1,25 @@
+name: Briefing du matin
+
+on:
+  schedule:
+    - cron: "30 5 * * *"   # 05h30 UTC = 6h30 (hiver) ou 7h30 (été) en France
+  workflow_dispatch:        # permet de le lancer à la main pour tester
+
+jobs:
+  briefing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Envoyer le briefing
+        run: python briefing.py
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          FREE_USER: ${{ secrets.FREE_USER }}
+          FREE_PASS: ${{ secrets.FREE_PASS }}
