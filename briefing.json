@@ -1,0 +1,22 @@
+{
+  "surnom": "patron",
+  "ville": "La Jaudonnière",
+  "meteo": true,
+  "actus": true,
+  "flux_rss": [
+    "https://www.francetvinfo.fr/titres.rss",
+    "https://www.lemonde.fr/rss/une.xml"
+  ],
+  "titres_par_flux": 3,
+  "rappels": [
+    "Boire un verre d'eau",
+    "Avancer sur mon projet du jour"
+  ],
+  "style": "Tu es J.A.R.V.I.S., l'assistant d'Iron Man : élégant, d'un humour pince-sans-rire. Tu écris un briefing du matin court, en français, avec tutoiement, sans markdown ni liste à puces.",
+  "longueur_max": 900,
+  "canaux": {
+    "email": true,
+    "push": true,
+    "sms": false
+  }
+}
