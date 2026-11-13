@@ -142,30 +142,62 @@
       linear-gradient(rgba(93,255,138,.055) 1px, transparent 1px) 0 0 / 36px 36px,
       linear-gradient(90deg, rgba(93,255,138,.055) 1px, transparent 1px) 0 0 / 36px 36px,
       radial-gradient(ellipse at 50% 30%, #0f1d10 0%, var(--bg) 65%); }
-  body.tac .brand { letter-spacing: .12em; }
-  body.tac .brand::before { content: "[ "; }
-  body.tac .brand::after { content: " ]"; }
-  body.tac #status { letter-spacing: .14em; text-transform: uppercase; font-size: 19px; }
-  body.tac .msg { border-radius: 0; }
-  body.tac .msg.bot::before { content: "JARVIS ▸ "; color: var(--gold); }
-  body.tac .msg.me::before { content: "CMD ▸ "; color: var(--dim); }
-  body.tac .btn, body.tac .chip, body.tac .bar input[type="text"], body.tac details input { border-radius: 0; }
-  body.tac .chip { text-transform: uppercase; font-size: 14px; letter-spacing: .06em; }
-  body.tac .hud::before, body.tac .hud::after { content: ""; position: absolute; background: var(--cyan); opacity: .35; pointer-events: none; }
-  body.tac .hud::before { left: -14%; right: -14%; top: 50%; height: 1px; }
-  body.tac .hud::after { top: -14%; bottom: -14%; left: 50%; width: 1px; }
-  body.tac .stage { padding: 20px 28px;
+  body.tac .brand, body.hud .brand { letter-spacing: .12em; }
+  body.tac .brand::before, body.hud .brand::before { content: "[ "; }
+  body.tac .brand::after, body.hud .brand::after { content: " ]"; }
+  body.tac #status, body.hud #status { letter-spacing: .14em; text-transform: uppercase; font-size: 19px; }
+  body.tac .msg, body.hud .msg { border-radius: 0; }
+  body.tac .msg.bot::before, body.hud .msg.bot::before { content: "JARVIS ▸ "; color: var(--gold); }
+  body.tac .msg.me::before, body.hud .msg.me::before { content: "CMD ▸ "; color: var(--dim); }
+  body.tac .btn, body.tac .chip, body.tac .bar input[type="text"], body.tac details input, body.hud .btn, body.hud .chip, body.hud .bar input[type="text"], body.hud details input { border-radius: 0; }
+  body.tac .chip, body.hud .chip { text-transform: uppercase; font-size: 14px; letter-spacing: .06em; }
+  body.tac .hud::before, body.tac .hud::after, body.hud .hud::before, body.hud .hud::after { content: ""; position: absolute; background: var(--cyan); opacity: .35; pointer-events: none; }
+  body.tac .hud::before, body.hud .hud::before { left: -14%; right: -14%; top: 50%; height: 1px; }
+  body.tac .hud::after, body.hud .hud::after { top: -14%; bottom: -14%; left: 50%; width: 1px; }
+  body.tac .stage, body.hud .stage { padding: 20px 28px;
     background:
       linear-gradient(var(--gold), var(--gold)) top left / 18px 2px no-repeat, linear-gradient(var(--gold), var(--gold)) top left / 2px 18px no-repeat,
       linear-gradient(var(--gold), var(--gold)) top right / 18px 2px no-repeat, linear-gradient(var(--gold), var(--gold)) top right / 2px 18px no-repeat,
       linear-gradient(var(--gold), var(--gold)) bottom left / 18px 2px no-repeat, linear-gradient(var(--gold), var(--gold)) bottom left / 2px 18px no-repeat,
       linear-gradient(var(--gold), var(--gold)) bottom right / 18px 2px no-repeat, linear-gradient(var(--gold), var(--gold)) bottom right / 2px 18px no-repeat; }
+
+  /* ---- Thème HUD (rouge / vert sur noir) ---- */
+  body.hud { --cyan: #ff3b2f; --gold: #3ddc6a; --bg: #030303; --panel: #0b0505; --line: #3a1512; --text: #f0d9d6; --dim: #9a6f6a; --tick: #5a1d18;
+    font-family: "Share Tech Mono", ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 16px;
+    background: radial-gradient(rgba(255,59,47,.16) 1px, transparent 1.6px) 0 0 / 22px 22px, radial-gradient(ellipse at 50% 30%, #1a0707 0%, var(--bg) 70%); }
+  body.hud .hud { width: min(34vh, 260px); }
+  body.hud .hud .ring-a circle { stroke-width: 9; stroke-dasharray: 3 5 14 5; }
+  body.hud .hud .ring-b circle { stroke-width: 6; stroke-dasharray: 2 7; }
+  body.hud .code { display: none !important; }
+  .levels, .mx { display: none; position: fixed; z-index: 0; pointer-events: none; }
+  .levels { left: 16px; top: 96px; flex-direction: column; gap: 6px; }
+  .levels i { width: 36px; height: 22px; opacity: .3; animation: lvl 2.6s ease-in-out infinite; animation-delay: calc(var(--n) * .18s); }
+  @keyframes lvl { 0%, 100% { opacity: .22; } 50% { opacity: .95; } }
+  body[data-mode="listening"] .levels i { animation-duration: .8s; }
+  body[data-mode="speaking"] .levels i { animation-duration: .5s; }
+  .mx { right: 14px; top: 80px; width: 190px; height: 320px; }
+  @media (min-width: 1000px) { body.hud .levels { display: flex; } body.hud .mx { display: block; } }
+  .dash { display: none; width: min(980px, 100%); gap: 10px; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); flex: none; position: relative; z-index: 1; }
+  body.hud .dash { display: grid; }
+  .card { position: relative; background: var(--panel); border: 1px solid var(--line); padding: 10px 12px; min-height: 100px; }
+  .card::before { content: ""; position: absolute; left: -1px; top: -1px; width: 12px; height: 12px; border-left: 2px solid var(--gold); border-top: 2px solid var(--gold); }
+  .card h3 { margin: 0 0 4px; font-size: 13px; font-weight: 400; letter-spacing: .16em; color: var(--cyan); }
+  .card .big { font-size: 28px; line-height: 1.15; color: var(--text); font-variant-numeric: tabular-nums; }
+  .card .sub { font-size: 14px; line-height: 1.45; color: var(--dim); white-space: pre-line; }
+  .eq { display: flex; gap: 6px; align-items: flex-end; height: 46px; margin: 4px 0; }
+  .eq i { flex: 1; height: 100%; background: linear-gradient(var(--cyan), var(--gold)); transform-origin: bottom; animation: eq 1.7s ease-in-out infinite; animation-delay: calc(var(--n) * -.31s); }
+  @keyframes eq { 0%, 100% { transform: scaleY(.15); } 50% { transform: scaleY(.95); } }
+  body[data-mode="listening"] .eq i { animation-duration: .8s; }
+  body[data-mode="speaking"] .eq i { animation-duration: .45s; }
+  @media (prefers-reduced-motion: reduce) { .levels i, .eq i { animation: none; opacity: .7; } }
 </style>
 </head>
 <body data-mode="idle">
 
 <div id="boot"><pre id="bootText"></pre></div>
 
+<div class="levels" id="levels" aria-hidden="true"></div>
+<canvas class="mx" id="mx" width="190" height="320" aria-hidden="true"></canvas>
 <div class="code l" aria-hidden="true"><pre id="codeL"></pre></div>
 <div class="code r" aria-hidden="true"><pre id="codeR"></pre></div>
 
@@ -197,6 +229,14 @@
 
 <div id="status">Prêt</div>
 <div id="live"></div>
+
+<section class="dash" aria-label="Tableau de bord">
+  <div class="card"><h3>HEURE</h3><div class="big" id="dTime">--:--:--</div><div class="sub" id="dDate"></div></div>
+  <div class="card"><h3>MÉTÉO</h3><div class="big" id="dWx">--</div><div class="sub" id="dWxSub"></div></div>
+  <div class="card"><h3>SYSTÈME</h3><div class="sub" id="dSys"></div></div>
+  <div class="card"><h3>MÉMOIRE</h3><div class="big" id="dMem">0</div><div class="sub" id="dMemSub"></div></div>
+  <div class="card"><h3>SIGNAL</h3><div class="eq"><i style="--n:0"></i><i style="--n:1"></i><i style="--n:2"></i><i style="--n:3"></i><i style="--n:4"></i><i style="--n:5"></i><i style="--n:6"></i></div><div class="sub" id="dSig"></div></div>
+</section>
 
 <div id="log" aria-live="polite"></div>
 
@@ -273,6 +313,40 @@ const mem = {
   get() { try { return JSON.parse(store.get("jarvis_mem", "[]")); } catch { return []; } },
   set(a) { store.set("jarvis_mem", JSON.stringify(a)); }
 };
+const timers = [];
+let nReq = 0, battText = "n/d", wx = null;
+function fmt(ms) { const s = Math.max(0, Math.round(ms / 1000)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+async function loadWx() {
+  const city = store.get("jarvis_city") || "La Jaudonnière";
+  try {
+    const g = await (await fetch("https://geocoding-api.open-meteo.com/v1/search?count=1&language=fr&name=" + encodeURIComponent(city))).json();
+    const p = g.results && g.results[0];
+    if (!p) { wx = { err: "Ville introuvable : " + city }; return; }
+    const w = await (await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + p.latitude + "&longitude=" + p.longitude +
+      "&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=1")).json();
+    wx = { name: p.name, t: Math.round(w.current.temperature_2m), c: wxText(w.current.weather_code),
+      min: Math.round(w.daily.temperature_2m_min[0]), max: Math.round(w.daily.temperature_2m_max[0]), rain: w.daily.precipitation_probability_max[0] };
+  } catch { wx = { err: "Météo indisponible" }; }
+}
+function renderDash() {
+  const d = new Date();
+  const nx = timers.slice().sort((a, b) => a.end - b.end)[0];
+  $("#dTime").textContent = d.toLocaleTimeString("fr-FR");
+  $("#dDate").textContent = d.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }) + "\n" +
+    (nx ? "⏱ " + fmt(nx.end - Date.now()) + " · " + nx.label : "Aucun minuteur");
+  if (!wx) { $("#dWx").textContent = "…"; }
+  else if (wx.err) { $("#dWx").textContent = "--"; $("#dWxSub").textContent = wx.err; }
+  else { $("#dWx").textContent = wx.t + " °C"; $("#dWxSub").textContent = wx.name + "\n" + wx.c + "\n" + wx.min + "° / " + wx.max + "° · pluie " + wx.rain + " %"; }
+  const k = store.get("jarvis_or_key");
+  const groq = k && k.startsWith("gsk_");
+  const ia = k ? (groq ? "Groq" : "OpenRouter") + " · " + (store.get("jarvis_or_model") || (groq ? "openai/gpt-oss-20b" : "openrouter/free")) : "Wikipédia / Google";
+  const voix = store.get("jarvis_el_key") && store.get("jarvis_el_voice") ? "ElevenLabs" : "navigateur";
+  $("#dSys").textContent = "réseau : " + (navigator.onLine ? "en ligne" : "hors ligne") + "\nbatterie : " + battText +
+    "\nmicro : " + (recActive ? "actif" : "coupé") + "\nIA : " + ia + "\nvoix : " + voix;
+  $("#dMem").textContent = mem.get().length;
+  $("#dMemSub").textContent = "informations\n" + notes.get().length + " notes · " + timers.length + " minuteur(s)\n" + nReq + " requête(s) IA";
+  $("#dSig").textContent = ({ idle: "veille", listening: "écoute", thinking: "analyse", speaking: "émission" })[document.body.dataset.mode] || "veille";
+}
 const notes = {
   get() { try { return JSON.parse(store.get("jarvis_notes", "[]")); } catch { return []; } },
   set(a) { store.set("jarvis_notes", JSON.stringify(a)); }
@@ -283,13 +357,13 @@ function sysPrompt() {
     (m.length ? " Informations retenues sur l'utilisateur : " + m.join(" ; ") + "." : "");
 }
 function nick() { return store.get("jarvis_nick") || (Math.random() < 0.5 ? "patron" : "boss"); }
-const THEMES = ["tac", "blue", "red"];
-function themeName() { return store.get("jarvis_theme2") || "tac"; }
+const THEMES = ["hud", "tac", "blue", "red"];
+function themeName() { return store.get("jarvis_theme3") || "hud"; }
 function setTheme(name) {
-  if (!THEMES.includes(name)) name = "tac";
-  document.body.classList.remove("tac", "red");
+  if (!THEMES.includes(name)) name = "hud";
+  document.body.classList.remove("hud", "tac", "red");
   if (name !== "blue") document.body.classList.add(name);
-  store.set("jarvis_theme2", name);
+  store.set("jarvis_theme3", name);
 }
 function renderMemo() {
   const body = $("#memoBody"); body.innerHTML = "";
@@ -475,7 +549,10 @@ function openSite(url) {
   return null;
 }
 function startTimer(ms, label, msg) {
+  const e = { end: Date.now() + ms, label: msg || label };
+  timers.push(e);
   setTimeout(async () => {
+    timers.splice(timers.indexOf(e), 1);
     beep();
     const t = msg ? nick() + ", rappel : " + msg + "." : nick() + ", ta minuterie de " + label + " est terminée.";
     addMsg("bot", t);
@@ -564,10 +641,10 @@ async function localCommand(raw) {
   }
 
   if (/diagnostic|état du système|statut système/.test(t)) return { reply: await diagnostic() };
-  const th = t.match(/th[èe]me\s+(rouge|bleu|tactique|vert|iron man|classique)|mode (tactique|classique)/);
+  const th = t.match(/th[èe]me\s+(rouge|bleu|tactique|vert|iron man|classique|hud|cyber)|mode (tactique|classique|hud|cyber)/);
   if (th) {
     const w = th[1] || th[2];
-    setTheme(w === "rouge" || w === "iron man" ? "red" : w === "bleu" || w === "classique" ? "blue" : "tac");
+    setTheme(w === "hud" || w === "cyber" ? "hud" : w === "rouge" || w === "iron man" ? "red" : w === "bleu" || w === "classique" ? "blue" : "tac");
     return { reply: "Thème modifié." };
   }
 
@@ -652,6 +729,7 @@ async function askLLM(q) {
   const url = groq ? "https://api.groq.com/openai/v1/chat/completions" : "https://openrouter.ai/api/v1/chat/completions";
   const model = store.get("jarvis_or_model") || (groq ? "openai/gpt-oss-20b" : "openrouter/free");
   history.push({ role: "user", content: q });
+  nReq++;
   try {
     const r = await fetch(url, {
       method: "POST",
@@ -765,7 +843,7 @@ renderMemo();
 
 async function sysTick() {
   let t = navigator.onLine ? "en ligne" : "hors ligne";
-  try { const b = await navigator.getBattery(); t += " · batterie " + Math.round(b.level * 100) + " %"; } catch {}
+  try { const b = await navigator.getBattery(); battText = Math.round(b.level * 100) + " %" + (b.charging ? " (charge)" : ""); t += " · batterie " + Math.round(b.level * 100) + " %"; } catch {}
   $("#sys").textContent = t;
 }
 sysTick(); setInterval(sysTick, 15000);
@@ -773,13 +851,41 @@ sysTick(); setInterval(sysTick, 15000);
 (function boot() {
   const el = $("#boot"), out = $("#bootText");
   const lines = ["J.A.R.V.I.S. : initialisation", "Noyau vocal ........ OK", "Liaison réseau ..... " + (navigator.onLine ? "OK" : "HORS LIGNE"),
-    "Mémoire ............ " + mem.get().length + " entrée(s)", "Interface .......... OK", ...(themeName() === "tac" ? ["Mode tactique ..... ACTIF"] : []), "Systèmes en ligne."];
+    "Mémoire ............ " + mem.get().length + " entrée(s)", "Interface .......... OK", ...(["tac", "hud"].includes(themeName()) ? ["Mode tactique ..... ACTIF"] : []), "Systèmes en ligne."];
   let i = 0, done = false;
   const end = () => { if (done) return; done = true; el.classList.add("off"); chime(880, 0.18); };
   el.onclick = end;
   const next = () => { if (done) return; if (i < lines.length) { out.textContent += lines[i++] + "\n"; setTimeout(next, 380); } else setTimeout(end, 500); };
   next();
 })();
+
+(function levels() {
+  const el = $("#levels");
+  for (let i = 0; i < 12; i++) {
+    const e = document.createElement("i"), t = i / 11;
+    e.style.background = "rgb(" + Math.round(255 - t * 194) + "," + Math.round(59 + t * 161) + "," + Math.round(47 + t * 59) + ")";
+    e.style.setProperty("--n", i);
+    el.append(e);
+  }
+})();
+(function matrix() {
+  const c = $("#mx"), g = c.getContext("2d"), W = c.width, H = c.height, S = 8;
+  const cols = Math.floor(W / S), rows = Math.floor(H / S), on = [];
+  const dens = x => Math.pow(x / cols, 1.6) * 0.9;
+  for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) on.push(Math.random() < dens(x));
+  function draw() {
+    g.clearRect(0, 0, W, H);
+    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+      const k = y * cols + x;
+      if (Math.random() < 0.02) on[k] = Math.random() < dens(x);
+      if (on[k]) { g.fillStyle = "rgba(255,59,47," + (0.25 + 0.6 * x / cols) + ")"; g.fillRect(x * S + 2, y * S + 2, 3, 3); }
+    }
+  }
+  draw();
+  setInterval(() => { if (document.body.classList.contains("hud") && !document.hidden) draw(); }, 450);
+})();
+loadWx(); setInterval(loadWx, 900000);
+renderDash(); setInterval(renderDash, 1000);
 
 document.querySelectorAll(".chip").forEach(b => b.onclick = () => { if (!busy) handle(b.dataset.cmd); });
 
